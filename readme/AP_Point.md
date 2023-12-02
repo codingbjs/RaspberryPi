@@ -24,14 +24,17 @@ sudo nano /etc/hostapd/hostapd.conf
 ``` plaintext
 interface=wlan0
 driver=nl80211
-ssid=KoreaRB4       # 원하는 네트워크 이름
+# 원하는 네트워크 이름
+ssid=KoreaSign-RB4       
 hw_mode=a
-channel=36           # 원하는 무선 채널
+# 원하는 무선 채널
+channel=36           
 macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase=koreasign00   # 원하는 무선 암호
+# 원하는 무선 암호
+wpa_passphrase=koreasign00   
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
@@ -59,7 +62,7 @@ sudo nano /etc/dnsmasq.conf
 
 ``` plaintext
 interface=wlan0
-dhcp-range=192.168.10.2,192.168.10.20,255.255.255.0,24h
+dhcp-range=192.168.100.2,192.168.100.20,255.255.255.0,24h
 ```
 
 ## 6. 무선 인터페이스 설정
@@ -72,18 +75,23 @@ sudo nano /etc/network/interfaces
 ``` plaintext
 allow-hotplug wlan0
 iface wlan0 inet static
-    address 192.168.10.1
+    address 192.168.100.1
     netmask 255.255.255.0
-    network 192.168.10.0
+    network 192.168.100.0
 ```
 
 ## 7. 무선 인터페이스 활성화
 
 ``` bash
-sudo ifconfig wlan0 192.168.10.1
+sudo ifconfig wlan0 192.168.100.1
 ```
 
 ## 8. 서비스 재시작
+- hostapd 서비스 마스크 해제:
+
+``` bash
+sudo systemctl unmask hostapd
+```
 
 ``` bash
 sudo service hostapd start
